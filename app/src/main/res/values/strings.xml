@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Story App(v2)</string>
+    <string name="textSplashScreen">Welcome to Story App</string>
+
+    <string name="signup">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="message_welcome_page">You can upload your story on Story App</string>
+    <string name="title_welcome_page">Welcome to Story App</string>
+    <string name="title_signup_page">Please fill your data</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="message_login_page">Please fill your data</string>
+    <string name="title_login_page">Are you ready to upload your story?</string>
+    <string name="message_main_page">Welcome to Story App.</string>
+    <string name="greeting">Hello %1$s,</string>
+    <string name="logout">Log out</string>
+    <string name="register">Register</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="add_story">add story</string>
+    <string name="setting">Setting</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="enter_your_description">Enter your description</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="name">Name</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="upload">Upload</string>
+    <string name="errorEmail">Fill the Email Field</string>
+    <string name="invalidEmail">Invalid Email</string>
+    <string name="passwordInvalid">Password must be at least 6 character</string>
+    <string name="errorName">Fill the name Field</string>
+    <string name="loginSuccess">Login successfully!</string>
+    <string name="loginError">Login failed!</string>
+    <string name="signupSuccess">Your account has been created!</string>
+    <string name="signupError">Invalid!</string>
+    <string name="previewImage">This is a picture</string>
+    <string name="retry">Please try again!</string>
+    <string name="map">Map</string>
+    <string name="title_activity_maps">MapsActivity</string>
+</resources>

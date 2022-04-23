@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Story App(v2)</string>
+    <string name="textSplashScreen">Selamat datang ke Aplikasi Story</string>
+    <string name="signup">Daftar</string>
+    <string name="login">Masuk</string>
+    <string name="message_welcome_page">Anda dapat mengunggah story dalam Aplikasi Story</string>
+    <string name="title_welcome_page">Selamat Datang di Aplikasi Story</string>
+    <string name="title_signup_page">Isi data Anda</string>
+    <string name="email">Surel</string>
+    <string name="password">Kata sandi</string>
+    <string name="message_login_page">Isi data Anda</string>
+    <string name="greeting">Halo %1$s,</string>
+    <string name="title_login_page">Apakah kamu siap untuk mengunggah story Anda?</string>
+    <string name="name">Nama</string>
+    <string name="message_main_page">Selamat datang ke Aplikasi Story</string>
+    <string name="logout">Keluar</string>
+    <string name="register">Daftar</string>
+    <string name="don_t_have_an_account">Belum punya akun?</string>
+    <string name="add_story">Tambah story</string>
+    <string name="setting">Pengaturan</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galleri</string>
+    <string name="enter_your_description">"Masukkan deskripsi "</string>
+    <string name="enter_your_name">Masukan nama Anda</string>
+    <string name="enter_your_email">Masukan alamat surel Anda</string>
+    <string name="enter_your_password">Masukan kata sandi Anda</string>
+    <string name="upload">Unggah</string>
+    <string name="errorEmail">Isi kolom surel</string>
+    <string name="invalidEmail">Surel tidak valid</string>
+    <string name="passwordInvalid">Kata sandi minimal 6 karakter</string>
+    <string name="errorName">Isi kolom nama</string>
+    <string name="loginSuccess">Berhasil masuk!</string>
+    <string name="loginError">Login gagal!</string>
+    <string name="signupSuccess">Akun anda berhasil dibuat!</string>
+    <string name="signupError">Terjasi kesalahan!</string>
+    <string name="previewImage">Ini adalah gambar</string>
+    <string name="retry">Tolong coba kembali!</string>
+    <string name="map">Peta</string>
+
+</resources>
