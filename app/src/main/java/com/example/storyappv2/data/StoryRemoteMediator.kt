@@ -6,7 +6,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.storyappv2.database.StoryDatabase
-import com.example.storyappv2.network.Story
+import com.example.storyappv2.network.response.Story
 import com.example.storyappv2.network.api.ApiService
 
 @OptIn(ExperimentalPagingApi::class)

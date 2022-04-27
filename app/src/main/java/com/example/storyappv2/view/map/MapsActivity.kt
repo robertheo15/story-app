@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class MapsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMapsBinding
-    private  val storyViewModel: StoryViewModel by viewModels()
+    private val storyViewModel: StoryViewModel by viewModels()
 
 
     private val callback = OnMapReadyCallback { googleMap ->
@@ -32,7 +32,12 @@ class MapsActivity : AppCompatActivity() {
                 googleMap.uiSettings.isZoomControlsEnabled = true
                 try {
                     val success =
-                        googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(applicationContext, R.raw.map_style))
+                        googleMap.setMapStyle(
+                            MapStyleOptions.loadRawResourceStyle(
+                                applicationContext,
+                                R.raw.map_style
+                            )
+                        )
                     if (!success) {
                         Log.e(TAG, "Style parsing failed.")
                     }

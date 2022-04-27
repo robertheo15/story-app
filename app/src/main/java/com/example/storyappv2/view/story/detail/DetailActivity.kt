@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.example.storyappv2.R
 import com.example.storyappv2.databinding.ActivityDetailBinding
-import com.example.storyappv2.network.Story
+import com.example.storyappv2.network.response.Story
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*

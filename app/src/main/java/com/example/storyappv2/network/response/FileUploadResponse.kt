@@ -1,8 +1,8 @@
-package com.example.storyappv2.network
+package com.example.storyappv2.network.response
 
 import com.google.gson.annotations.SerializedName
 
-data class RegisterResponse(
+data class FileUploadResponse(
 
     @field:SerializedName("error")
     val error: Boolean,

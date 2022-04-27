@@ -1,13 +1,11 @@
 package com.example.storyappv2.network.api
 
-import com.example.storyappv2.network.FileUploadResponse
-import com.example.storyappv2.network.RegisterResponse
-import com.example.storyappv2.network.Story
-import com.example.storyappv2.network.StoryResponse
-import com.example.storyappv2.network.UserResponse
+import com.example.storyappv2.network.response.FileUploadResponse
+import com.example.storyappv2.network.response.RegisterResponse
+import com.example.storyappv2.network.response.StoryResponse
+import com.example.storyappv2.network.response.UserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET

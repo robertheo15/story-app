@@ -1,4 +1,4 @@
-package com.example.storyappv2.network
+package com.example.storyappv2.network.response
 
 import android.os.Parcelable
 import androidx.room.Entity

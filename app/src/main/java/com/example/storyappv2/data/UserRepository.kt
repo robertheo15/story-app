@@ -1,8 +1,8 @@
 package com.example.storyappv2.data
 
-import com.example.storyappv2.network.RegisterResponse
-import com.example.storyappv2.network.User
-import com.example.storyappv2.network.UserResponse
+import com.example.storyappv2.network.response.RegisterResponse
+import com.example.storyappv2.network.response.User
+import com.example.storyappv2.network.response.UserResponse
 import com.example.storyappv2.network.api.ApiService
 import com.example.storyappv2.utils.UserPreference
 import kotlinx.coroutines.flow.Flow

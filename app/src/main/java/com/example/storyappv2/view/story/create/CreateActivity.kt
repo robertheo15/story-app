@@ -1,7 +1,6 @@
 package com.example.storyappv2.view.story.create
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
@@ -139,10 +138,12 @@ class CreateActivity : AppCompatActivity() {
                 file.name,
                 requestImageFile
             )
-            val lat: RequestBody = location?.latitude.toString().toRequestBody("text/plain".toMediaType())
-            val lon: RequestBody = location?.longitude.toString().toRequestBody("text/plain".toMediaType())
+            val lat: RequestBody =
+                location?.latitude.toString().toRequestBody("text/plain".toMediaType())
+            val lon: RequestBody =
+                location?.longitude.toString().toRequestBody("text/plain".toMediaType())
 
-            Log.e("location : ","lat $lat  lon $lon" )
+            Log.e("location : ", "lat $lat  lon $lon")
             lifecycleScope.launchWhenResumed {
                 if (job.isActive) job.cancel()
                 job = launch {
