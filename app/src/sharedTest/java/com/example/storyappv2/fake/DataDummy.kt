@@ -8,19 +8,20 @@ import com.example.storyappv2.network.UserResponse
 
 object DataDummy {
 
-    fun generateLoginResponseSuccess(): UserResponse =
-        UserResponse(
+    fun generateLoginResponseSuccess(): UserResponse {
+        return UserResponse(
             false,
             "success",
             User(
-                "user-1bwsvoNzzBRARkUt",
-                "Robert",
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLTFid3N2b056ekJSQVJrVXQiLCJpYXQiOjE2NTA2MTc3ODd9.t9PJDHx1bu-OwJANnEsxyQl5C0IA4rRf7ejieFpr4Eg",
+                "user-yj5pc_LARC_AgK61",
+                "Arif Faizin",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLXlqNXBjX0xBUkNfQWdLNjEiLCJpYXQiOjE2NDE3OTk5NDl9.flEMaQ7zsdYkxuyGbiXjEDXO8kuDTcI__3UjCwt6R_I",
                 true
             )
         )
+    }
 
-//    fun generateRegisterResponseFail(): RegisterResponse =
+    fun generateRegisterResponseFail(): RegisterResponse = RegisterResponse(false, "User Created")
 
     fun generateDummyStory(): List<Story> {
         val storyList = ArrayList<Story>()
