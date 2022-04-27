@@ -8,8 +8,9 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.example.storyappv2.network.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
+class UserPreference @Inject constructor(private val dataStore: DataStore<Preferences>) {
 
     fun getUser(): Flow<User> {
         return dataStore.data.map { preferences ->
@@ -39,7 +40,6 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
 
     suspend fun logout() {
         dataStore.edit { preferences ->
-
             preferences[userId] = ""
             preferences[name] = ""
             preferences[token] = ""
@@ -48,20 +48,20 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     }
 
     companion object {
-        @Volatile
-        private var INSTANCE: UserPreference? = null
+//        @Volatile
+//        private var INSTANCE: UserPreference? = null
 
         private val userId = stringPreferencesKey("userId")
         private val name = stringPreferencesKey("name")
         private val token = stringPreferencesKey("token")
         private val isLogin = booleanPreferencesKey("isLogin")
 
-        fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
-            return INSTANCE ?: synchronized(this) {
-                val instance = UserPreference(dataStore)
-                INSTANCE = instance
-                instance
-            }
-        }
+//        fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
+//            return INSTANCE ?: synchronized(this) {
+//                val instance = UserPreference(dataStore)
+//                INSTANCE = instance
+//                instance
+//            }
+//        }
     }
 }

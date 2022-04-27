@@ -1,20 +1,13 @@
 package com.example.storyappv2.view.map
 
-import android.content.Context
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.storyappv2.R
 import com.example.storyappv2.databinding.ActivityMapsBinding
-import com.example.storyappv2.utils.UserPreference
-import com.example.storyappv2.utils.ViewModelFactory
-import com.example.storyappv2.utils.isLoading
 import com.example.storyappv2.view.story.StoryViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -22,13 +15,15 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
 
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
     private lateinit var binding: ActivityMapsBinding
-    private lateinit var storyViewModel: StoryViewModel
+    private  val storyViewModel: StoryViewModel by viewModels()
+
 
     private val callback = OnMapReadyCallback { googleMap ->
         lifecycleScope.launch {
@@ -55,12 +50,6 @@ class MapsActivity : AppCompatActivity() {
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val pref = UserPreference.getInstance(dataStore)
-        storyViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(pref, this)
-        )[StoryViewModel::class.java]
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment

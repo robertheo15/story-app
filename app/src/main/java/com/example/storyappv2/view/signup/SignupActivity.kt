@@ -2,7 +2,6 @@ package com.example.storyappv2.view.signup
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -10,23 +9,24 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.storyappv2.R
 import com.example.storyappv2.databinding.ActivitySignupBinding
-import com.example.storyappv2.utils.UserPreference
-import com.example.storyappv2.utils.ViewModelFactory
 import com.example.storyappv2.utils.isLoading
 import com.example.storyappv2.view.login.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SignupActivity : AppCompatActivity() {
 
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
     private lateinit var binding: ActivitySignupBinding
-    private lateinit var signupViewModel: SignupViewModel
+    private  val signupViewModel: SignupViewModel by viewModels()
+    private var job: Job = Job()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +34,8 @@ class SignupActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
-        setupViewModel()
         playAnimation()
-        register()
+        binding.signupButton.setOnClickListener {register()}
 
     }
 
@@ -53,46 +52,34 @@ class SignupActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun setupViewModel() {
-        signupViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(UserPreference.getInstance(dataStore))
-        )[SignupViewModel::class.java]
-    }
-
     private fun register() {
-        binding.signupButton.setOnClickListener {
-            val name = binding.nameEditText.text.toString().trim()
-            val email = binding.emailEditText.text.toString().trim()
-            val password = binding.passwordEditText.text.toString().trim()
 
-            signupViewModel.signUp(name, email, password)
-            signupViewModel.registerResponse.observe(this@SignupActivity) { registerResponse ->
-                if (registerResponse.error) {
-                    signupViewModel.isLoading.observe(this) {
-                        isLoading(it, binding.signupProgressBar)
+        val name = binding.nameEditText.text.toString().trim()
+        val email = binding.emailEditText.text.toString().trim()
+        val password = binding.passwordEditText.text.toString().trim()
+        isLoading(true, binding.signupProgressBar)
+
+        lifecycleScope.launchWhenResumed {
+            if (job.isActive) job.cancel()
+            job = launch {
+                signupViewModel.signUp(name, email, password).collect { result ->
+                    result.onSuccess {
+                        startActivity(Intent(this@SignupActivity, LoginActivity::class.java))
+                        finish()
+                        Toast.makeText(
+                            this@SignupActivity,
+                            getString(R.string.signupSuccess),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    if (name.isEmpty()) {
-                        binding.nameEditText.error = getString(R.string.errorName)
-                    } else {
-                        binding.nameEditTextLayout.hint = getString(R.string.enter_your_name)
+                    result.onFailure {
+                        Toast.makeText(
+                            this@SignupActivity,
+                            getString(R.string.signupError),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        isLoading(false, binding.signupProgressBar)
                     }
-                    Toast.makeText(
-                        this@SignupActivity,
-                        getString(R.string.signupError),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    signupViewModel.isLoading.observe(this) {
-                        isLoading(it, binding.signupProgressBar)
-                    }
-                    Toast.makeText(
-                        this@SignupActivity,
-                        getString(R.string.signupSuccess),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    startActivity(Intent(this, LoginActivity::class.java))
-                    finish()
                 }
             }
         }

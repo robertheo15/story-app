@@ -2,7 +2,6 @@ package com.example.storyappv2.view.login
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -10,24 +9,25 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.storyappv2.R
 import com.example.storyappv2.databinding.ActivityLoginBinding
-import com.example.storyappv2.utils.UserPreference
-import com.example.storyappv2.utils.ViewModelFactory
 import com.example.storyappv2.utils.isLoading
 import com.example.storyappv2.view.signup.SignupActivity
 import com.example.storyappv2.view.story.StoryActivity
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
-    private lateinit var loginViewModel: LoginViewModel
+    private  val loginViewModel: LoginViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
+    private var job: Job = Job()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +35,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
-        setupViewModel()
-        login()
+        binding.loginButton.setOnClickListener {login()}
         playAnimation()
         binding.tvRegister.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
@@ -57,41 +56,36 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun setupViewModel() {
-
-        loginViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(UserPreference.getInstance(dataStore))
-        )[LoginViewModel::class.java]
-    }
-
     private fun login() {
-        binding.loginButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
 
-            loginViewModel.login(email, password)
-            loginViewModel.userResponse.observe(this@LoginActivity) { userResponse ->
-                if (userResponse.error) {
-                    loginViewModel.isLoading.observe(this) {
-                        isLoading(it, binding.loginProgressBar)
+        val email = binding.emailEditText.text.toString()
+        val password = binding.passwordEditText.text.toString()
+        isLoading(true, binding.loginProgressBar)
+
+        lifecycleScope.launchWhenResumed {
+            if (job.isActive) job.cancel()
+            job = launch {
+                loginViewModel.login(email, password).collect { result ->
+                    result.onSuccess { response ->
+                        response.loginResult?.let { user ->
+                            loginViewModel.setUser(user)
+                            startActivity(Intent(this@LoginActivity, StoryActivity::class.java))
+                            finish()
+                            Toast.makeText(
+                                this@LoginActivity,
+                                getString(R.string.loginSuccess),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                }
+                    result.onFailure {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            getString(R.string.loginError),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        isLoading(false, binding.loginProgressBar)
                     }
-                    Toast.makeText(
-                        this@LoginActivity,
-                        getString(R.string.loginError),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    loginViewModel.isLoading.observe(this) {
-                        isLoading(it, binding.loginProgressBar)
-                    }
-                    Toast.makeText(
-                        this@LoginActivity,
-                        getString(R.string.loginSuccess),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    startActivity(Intent(this, StoryActivity::class.java))
-                    finish()
                 }
             }
         }

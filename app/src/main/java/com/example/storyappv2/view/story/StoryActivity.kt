@@ -1,34 +1,35 @@
 package com.example.storyappv2.view.story
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyappv2.R
 import com.example.storyappv2.databinding.ActivityStoryBinding
-import com.example.storyappv2.network.User
-import com.example.storyappv2.utils.UserPreference
-import com.example.storyappv2.utils.ViewModelFactory
 import com.example.storyappv2.view.map.MapsActivity
 import com.example.storyappv2.view.login.LoginActivity
+import com.example.storyappv2.view.login.LoginViewModel
 import com.example.storyappv2.view.story.create.CreateActivity
 import com.example.storyappv2.view.welcome.WelcomeActivity
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class StoryActivity : AppCompatActivity() {
 
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
-    private lateinit var storyViewModel: StoryViewModel
+    private val storyViewModel: StoryViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
+
     private lateinit var binding: ActivityStoryBinding
     private lateinit var adapter: StoryListAdapter
-    private lateinit var user: User
+    private var job: Job = Job()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,22 +42,20 @@ class StoryActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        val pref = UserPreference.getInstance(dataStore)
 
-        storyViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(pref, this)
-        )[StoryViewModel::class.java]
+        lifecycleScope.launchWhenResumed {
+            if (job.isActive) job.cancel()
+            loginViewModel.getUser().collect { user ->
+                if (user?.isLogin == false) {
+                    startActivity(Intent(this@StoryActivity, LoginActivity::class.java))
+                    finish()
+                } else {
+                    storyViewModel.findAllStories(user?.token!!)
+                        .observe(this@StoryActivity) { stories ->
+                            adapter.setStoryList(stories)
+                            adapter.submitData(lifecycle, stories)
+                        }
 
-        storyViewModel.getUser().observe(this) { user ->
-            this.user = user
-            if (!user.isLogin) {
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            } else {
-                storyViewModel.story(user.token).observe(this) {
-                    adapter.setStoryList(it)
-                    adapter.submitData(lifecycle, it)
                 }
             }
         }
@@ -80,11 +79,21 @@ class StoryActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.map -> {
-                startActivity(Intent(this, MapsActivity::class.java))
+                lifecycleScope.launchWhenResumed {
+                    if (job.isActive) job.cancel()
+                    job = launch {
+                        startActivity(Intent(this@StoryActivity, MapsActivity::class.java))
+                    }
+                }
                 true
             }
             R.id.addStory -> {
-                startActivity(Intent(this, CreateActivity::class.java))
+                lifecycleScope.launchWhenResumed {
+                    if (job.isActive) job.cancel()
+                    job = launch {
+                        startActivity(Intent(this@StoryActivity, CreateActivity::class.java))
+                    }
+                }
                 true
             }
             R.id.setting -> {
@@ -92,9 +101,14 @@ class StoryActivity : AppCompatActivity() {
                 true
             }
             R.id.logout -> {
-                storyViewModel.logout()
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finish()
+                lifecycleScope.launchWhenResumed {
+                    if (job.isActive) job.cancel()
+                    job = launch {
+                        loginViewModel.logout()
+                        startActivity(Intent(this@StoryActivity, WelcomeActivity::class.java))
+                        finish()
+                    }
+                }
                 true
             }
             else -> true

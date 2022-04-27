@@ -38,4 +38,6 @@
     <string name="retry">Please try again!</string>
     <string name="map">Map</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="uploadSuccess">Success!</string>
+    <string name="uploadError">Failed!</string>
 </resources>

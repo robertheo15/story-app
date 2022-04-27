@@ -37,5 +37,7 @@
     <string name="previewImage">Ini adalah gambar</string>
     <string name="retry">Tolong coba kembali!</string>
     <string name="map">Peta</string>
-
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="uploadSuccess">Berhasil!</string>
+    <string name="uploadError">Gagal!</string>
 </resources>
