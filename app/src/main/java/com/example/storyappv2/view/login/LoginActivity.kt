@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    private  val loginViewModel: LoginViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
     private var job: Job = Job()
 
@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
-        binding.loginButton.setOnClickListener {login()}
+        binding.loginButton.setOnClickListener { login() }
         playAnimation()
         binding.tvRegister.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
@@ -77,7 +77,7 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                }
+                    }
                     result.onFailure {
                         Toast.makeText(
                             this@LoginActivity,

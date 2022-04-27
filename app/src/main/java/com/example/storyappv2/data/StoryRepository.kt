@@ -5,9 +5,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.storyappv2.database.StoryDatabase
-import com.example.storyappv2.network.FileUploadResponse
-import com.example.storyappv2.network.Story
-import com.example.storyappv2.network.StoryResponse
+import com.example.storyappv2.network.response.FileUploadResponse
+import com.example.storyappv2.network.response.Story
 import com.example.storyappv2.network.api.ApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

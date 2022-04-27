@@ -3,10 +3,7 @@ package com.example.storyappv2.view.story
 import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.paging.PagingData
@@ -16,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.storyappv2.R
 import com.example.storyappv2.databinding.ItemRowStoryBinding
-import com.example.storyappv2.network.Story
+import com.example.storyappv2.network.response.Story
 import com.example.storyappv2.view.story.detail.DetailActivity
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -38,7 +35,7 @@ class StoryListAdapter :
     }
 
     override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
-       val data = getItem(position)
+        val data = getItem(position)
         if (data != null) {
             holder.bind(data)
         }

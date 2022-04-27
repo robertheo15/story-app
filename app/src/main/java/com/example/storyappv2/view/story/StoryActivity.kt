@@ -38,7 +38,6 @@ class StoryActivity : AppCompatActivity() {
 
         setRecyclerView()
         setupViewModel()
-
     }
 
     private fun setupViewModel() {
@@ -55,7 +54,6 @@ class StoryActivity : AppCompatActivity() {
                             adapter.setStoryList(stories)
                             adapter.submitData(lifecycle, stories)
                         }
-
                 }
             }
         }

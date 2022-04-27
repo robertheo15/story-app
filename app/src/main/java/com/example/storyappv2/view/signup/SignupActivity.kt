@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 class SignupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignupBinding
-    private  val signupViewModel: SignupViewModel by viewModels()
+    private val signupViewModel: SignupViewModel by viewModels()
     private var job: Job = Job()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class SignupActivity : AppCompatActivity() {
 
         setupView()
         playAnimation()
-        binding.signupButton.setOnClickListener {register()}
+        binding.signupButton.setOnClickListener { register() }
 
     }
 

@@ -3,7 +3,7 @@ package com.example.storyappv2.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.storyappv2.data.RemoteKeys
-import com.example.storyappv2.network.Story
+import com.example.storyappv2.network.response.Story
 
 @Database(
     entities = [Story::class, RemoteKeys::class],

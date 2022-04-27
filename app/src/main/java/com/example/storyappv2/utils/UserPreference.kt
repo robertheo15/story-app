@@ -5,7 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.example.storyappv2.network.User
+import com.example.storyappv2.network.response.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -48,20 +48,10 @@ class UserPreference @Inject constructor(private val dataStore: DataStore<Prefer
     }
 
     companion object {
-//        @Volatile
-//        private var INSTANCE: UserPreference? = null
 
         private val userId = stringPreferencesKey("userId")
         private val name = stringPreferencesKey("name")
         private val token = stringPreferencesKey("token")
         private val isLogin = booleanPreferencesKey("isLogin")
-
-//        fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
-//            return INSTANCE ?: synchronized(this) {
-//                val instance = UserPreference(dataStore)
-//                INSTANCE = instance
-//                instance
-//            }
-//        }
     }
 }

@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.storyappv2.data.StoryRepository
-import com.example.storyappv2.network.Story
+import com.example.storyappv2.network.response.Story
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
