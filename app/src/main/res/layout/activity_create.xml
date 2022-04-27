@@ -14,22 +14,22 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.351" />
 
     <ImageView
         android:id="@+id/previewImageView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="24dp"
+        android:contentDescription="@string/previewImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/story_app"
         tools:ignore="ImageContrastCheck"
-        tools:src="@drawable/story_app"
-        android:contentDescription="@string/previewImage" />
+        tools:src="@drawable/story_app" />
 
     <Button
         android:id="@+id/btnCamera"

@@ -25,6 +25,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:contentDescription="@string/previewImage"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +40,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
+        android:alpha="0"
         android:text="@string/title_signup_page"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -46,8 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal"
-        android:alpha="0" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal" />
 
     <TextView
         android:id="@+id/nameTextView"
@@ -55,11 +56,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        android:alpha="0"
         android:text="@string/name"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-        android:alpha="0"/>
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameEditTextLayout"
@@ -79,9 +80,9 @@
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_your_name"
             android:background="@drawable/custom_input"
             android:ems="10"
+            android:hint="@string/enter_your_name"
             android:inputType="text"
             app:passwordToggleEnabled="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -92,11 +93,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:alpha="0"
         android:text="@string/email"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameEditTextLayout"
-        android:alpha="0"/>
+        app:layout_constraintTop_toBottomOf="@+id/nameEditTextLayout" />
 
     <com.example.storyappv2.utils.EmailText
         android:id="@+id/emailEditText"
@@ -106,12 +107,12 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:hint="@string/enter_your_email"
+        android:alpha="0"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/ic_baseline_email_24"
         android:drawablePadding="12dp"
+        android:hint="@string/enter_your_email"
         android:paddingStart="12dp"
-        android:alpha="0"
         android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,26 +124,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        android:alpha="0"
         android:text="@string/password"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditText"
-        android:alpha="0"/>
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
     <com.example.storyappv2.utils.PasswordText
         android:id="@+id/passwordEditText"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_gravity="start"
-        android:hint="@string/enter_your_password"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:alpha="0"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/ic_baseline_lock_24"
         android:drawablePadding="12dp"
+        android:hint="@string/enter_your_password"
         android:inputType="textPassword"
-        android:alpha="0"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -156,9 +157,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
+        android:background="@drawable/rounded_button"
         android:backgroundTint="@color/light_1"
         android:text="@string/signup"
-        android:background="@drawable/rounded_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />

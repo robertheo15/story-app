@@ -157,6 +157,7 @@ class CreateActivity : AppCompatActivity() {
                                 lon
                             ).collect { result ->
                                 result.onSuccess {
+                                    isLoading(false, binding.createProgressBar)
                                     Toast.makeText(
                                         this@CreateActivity,
                                         getString(R.string.uploadSuccess),
